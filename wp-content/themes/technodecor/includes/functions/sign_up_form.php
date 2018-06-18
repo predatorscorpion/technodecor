@@ -21,7 +21,12 @@ function sign_up_form(){
         </tr>
     </table>";
 
-    if(wp_mail('technodecor@ukr.net', 'Технології декору', $textMessage, $headers)){
+    $technodecorEmail = get_option('technodecorEmail');
+    if (!$technodecorEmail) {
+        $technodecorEmail = 'technodecor@ukr.net';
+    }
+
+    if(wp_mail($technodecorEmail, 'Технології декору', $textMessage, $headers)){
         echo 1;
     }
     else{

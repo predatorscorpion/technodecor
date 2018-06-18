@@ -7,30 +7,41 @@
 	<?php wp_footer(); ?>
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 logo">
-                <a href="<?= home_url(); ?>"><img src="<?= get_template_directory_uri(); ?>/images/logo.gif" alt="<?= $arrayLang['technodecor']; ?>"></a>
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 logo">
+                <a href="<?= home_url(); ?>"><img src="<?= get_template_directory_uri(); ?>/images/logo.png" alt="<?= get_bloginfo(); ?>"></a>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <address>
                     <ul>
-                        <li class="email"><a href="mailto:technodecor@ukr.net">technodecor@ukr.net</a></li>
-                        <li class="phone"><a href="tel:+38 (032) 255-53-77" >+38 (032) 255-53-77</a> - Call Center</li>
-                        <li class="phone"><a href="tel:+38 (099) 255-53-77" >+38‎ (099) 483-79-48</a> - Дизайн інтер'єру</li>
-                        <li class="address"><a href="https://goo.gl/maps/Tz7Lkz6K9Po" target="_blank"><span>79000, Україна, Львівська обл., Львів, вул. Огієнка 7</span></a></li>
-                        <li class="more-contacts"><a href="<? if ($currentLang != $defaultLang): ?>/<?= $currentLang; ?><? endif; ?>/contacts/"><?= $arrayLang['more-contacts'] ?></a></li>
+                        <li class="email"><a href="mailto:<?= $technodecorEmail; ?>"><?= $technodecorEmail; ?></a></li>
+                        <li class="phone"><a href="tel:+38 (032) 255-53-77">+38 (032) 255-53-77</a> - <?= $arrayLang['call-center']; ?></li>
+                        <li class="phone"><a href="tel:+38 (099) 255-53-77">+38‎ (099) 483-79-48</a> - <?= $arrayLang['interior-design']; ?></li>
+                        <li class="address"><a href="<?= $langAddress['main-address-link']; ?>" target="_blank"><span><?= $langAddress['main-address']; ?></span></a></li>
+                        <li class="more-contacts"><a href="<? if ($currentLang != $defaultLang): ?>/<?= $currentLang; ?><? endif; ?>/contacts"><?= $arrayLang['more-contacts'] ?></a></li>
                     </ul>
                 </address>
-                <div class="social-links">
-                    <ul>
-                        <li><a href="https://www.facebook.com/%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%97-%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D1%83-1629017373995554/" class="facebook" target="_blank"></a></li>
-                        <li><a href="https://plus.google.com/u/0/+%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%97%D0%B4%D0%B5%D0%BA%D0%BE%D1%80%D1%83%D0%9B%D1%8C%D0%B2%D1%96%D0%B2" class="google" target="_blank"></a></li>
-                        <li><a href="https://twitter.com/tehnodecor" class="twitter" target="_blank"></a></li>
-                        <li><a href="https://www.linkedin.com/feed/" class="linkedin" target="_blank"></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCr3wp12h7dy2Aw1KLEPdWdw" class="youtube" target="_blank"></a></li>
-                    </ul>
-                </div>
+                <?php
+                    $networkData = get_option('networkData');
+
+                    if($networkData):
+                        $facebookLink = ($networkData['facebook']) ? $networkData['facebook'] : '#';
+                        $twitterLink = ($networkData['twitter']) ? $networkData['twitter'] : '#';
+                        $googleLink = ($networkData['google']) ? $networkData['google'] : '#';
+                        $linkedInLink = ($networkData['linkedin']) ? $networkData['linkedin'] : '#';
+                        $youtubeLink = ($networkData['youtube']) ? $networkData['youtube'] : '#';
+                    ?>
+                        <div class="social-links">
+                            <ul>
+                                <li><a href="<?= $facebookLink; ?>" class="facebook" target="_blank"></a></li>
+                                <li><a href="<?= $googleLink; ?>" class="google" target="_blank"></a></li>
+                                <li><a href="<?= $twitterLink; ?>" class="twitter" target="_blank"></a></li>
+                                <li><a href="<?= $linkedInLink; ?>" class="linkedin" target="_blank"></a></li>
+                                <li><a href="<?= $youtubeLink; ?>" class="youtube" target="_blank"></a></li>
+                            </ul>
+                        </div>
+                <?php endif; ?>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                 <h3><?= $arrayLang['feedback']; ?></h3>
                 <form action="javascript:void(null);" method="post" class="sign-up-form" data-message-success="<?= $arrayLang['thank-you']; ?>" data-message-default="<?= $arrayLang['submit']; ?>">
                     <input type="text" name="name" placeholder="<?= $arrayLang['your-name']; ?>" class="hvr-shadow" data-toggle="tooltip" data-placement="top" data-trigger="manual" data-original-title="<?= $arrayLang['tooltip-name']; ?>">
@@ -52,6 +63,8 @@
 
 <script type="text/javascript" src="<?= get_template_directory_uri(); ?>/src/js/jquery.js"></script>
 <script type="text/javascript" src="<?= get_template_directory_uri(); ?>/src/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?= get_template_directory_uri(); ?>/src/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="<?= get_template_directory_uri(); ?>/src/js/slick.min.js"></script>
 <script type="text/javascript" src="<?= get_template_directory_uri(); ?>/src/js/custom.js"></script>
 
 </body>

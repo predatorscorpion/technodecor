@@ -1,0 +1,40 @@
+.img-container {
+    margin-top: 20px;
+}
+.img-item {
+    width: 200px;
+    float: left;
+    margin: 0 10px 10px 0;
+    position: relative;
+}
+.img-item > a {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #ff2433 !important;
+}
+
+.notice-success, .notice-error {
+    padding: 10px !important;
+    margin-left: 0 !important;
+}
+
+.table-galleries {
+    width: 50%;
+    min-width: 300px;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+.table-galleries tr td {
+    padding: 5px;
+    font-weight: bold;
+}
+.table-galleries tr:first-child td {
+    border-bottom: 2px solid #23282d;
+}
+.table-galleries tr td input {
+    width: 100%;
+}
+.table-galleries tr td a {
+    color: #ff2433 !important;
+}

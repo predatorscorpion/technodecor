@@ -3,8 +3,8 @@
     <div class="promo-block" data-path-to-theme="<?= get_template_directory_uri(); ?>">
         <div class="main-slider" data-images="img1.jpg img2.jpg">
             <div class="logo">
-                <a href="<?= home_url(); ?>"><img src="<?= get_template_directory_uri(); ?>/images/logo.gif" alt="<?= $arrayLang['technodecor']; ?>"></a>
-                <h1><?= $arrayLang['technodecor']; ?></h1>
+                <a href="<?= home_url(); ?>"><img src="<?= get_template_directory_uri(); ?>/images/logo.png" alt="<?= get_bloginfo(); ?>"></a>
+                <a href="<?= home_url(); ?>"><img src="<?= get_template_directory_uri(); ?>/images/logo-text.png" class="logo-text" alt="<?= get_bloginfo(); ?>"></a>
             </div>
         </div>
     </div>
@@ -12,6 +12,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-10 menu">
+                    <div class="menu__icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
                         <?php wp_nav_menu(array('menu' => 'Top-menu-'.$currentLang)); ?>
                     </nav>
