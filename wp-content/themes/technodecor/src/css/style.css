@@ -276,6 +276,11 @@ nav ul li:hover ul.sub-menu {
 .page-info ul {
     list-style-image: url("../../images/icons/gps-device.png");
 }
+.page-info table {
+    margin: 0 auto;
+    width: 70% !important;
+}
+
 .interior-designs {
     margin-top: 30px;
 }
@@ -396,6 +401,7 @@ section.galleries-for {
     padding: 10px;
     border: 1px solid #858585;
     border-radius: 5px;
+    cursor: pointer;
 }
 section.galleries-for img, section.galleries-nav img {
     width: 100%;
@@ -410,6 +416,7 @@ section.galleries-nav {
     padding: 10px;
     border: 1px solid #858585;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 footer {
@@ -634,6 +641,25 @@ p.error-while-submitting-message {
     display: block;
 }
 
+.div_404 {
+    min-height: calc(100vh - 302px);
+    color: #09380e;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 100px;
+}
+.div_404 h2 {
+    font-size: 150px;
+}
+.div_404 p {
+    font-size: 40px;
+    color: #09380e;
+}
+.div_404 a {
+    font-size: 40px;
+    color: #09380e;
+    text-decoration: underline !important;
+}
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
     header .logo a > img {
@@ -648,6 +674,13 @@ p.error-while-submitting-message {
     }
     .interior-design table tr td {
         font-size: 14px;
+    }
+
+    section.galleries-for {
+        width: 100%;
+    }
+    section.galleries-nav {
+        width: 80%;
     }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -667,14 +700,29 @@ p.error-while-submitting-message {
         width: 400px;
         margin: 0 auto;
     }
+
+    section.galleries-for {
+        width: 80%;
+    }
+    section.galleries-nav {
+        width: 90%;
+    }
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
     header .logo {
         text-align: right;
     }
 
+    .div_404 {
+        min-height: calc(100vh - 700px);
+    }
+
     form.contacts-form {
         padding-bottom: 40px;
+    }
+
+    .page-info table {
+        width: 100% !important;
     }
 
     footer .logo img {
@@ -735,5 +783,13 @@ p.error-while-submitting-message {
         position: absolute;
         top: 0;
         right: 20px;
+    }
+}
+@media screen and (min-width: 1920px) and (max-width: 2500px) {
+    section.galleries-for {
+        width: 80%;
+    }
+    section.galleries-nav {
+        width: 90%;
     }
 }

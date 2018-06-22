@@ -132,42 +132,51 @@ function addPhotosToGallery()
     $galleries = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "technodecor_gallery ORDER BY id");
 
     if (isset($_POST['gallery-id']) && isset($_FILES['img'])) {
-        if (!in_array($_FILES['img']['type'], ['image/jpg', 'image/jpeg', 'image/png'], true)) {
-            echo '<div class="notice notice-error"><strong>Некоректний тип файлу! Використовуйте тільки .jpeg, .jpg or .png</strong></div>';
-            exit();
-        } elseif ($_FILES['img']['size'] > 1024 * 3 * 1024) {
-            echo '<div class="notice notice-error"><strong>Розмір файлу більше 3 MB!</strong></div>';
-            exit();
-        } elseif (is_uploaded_file($_FILES['img']['tmp_name'])) {
-            if (!file_exists($baseDir . $galleryDirName . $_POST['gallery-id'])) {
-                mkdir($baseDir . $galleryDirName . $_POST['gallery-id'], 0755, true);
+        foreach ($_FILES['img']['type'] as $type) {
+            if (!in_array($type, ['image/jpg', 'image/jpeg', 'image/png'], true)) {
+                echo '<div class="notice notice-error"><strong>Некоректний тип файлу! Використовуйте тільки .jpeg, .jpg or .png</strong></div>';
+                exit();
             }
+        }
+        foreach ($_FILES['img']['size'] as $size) {
+            if ($size > 1024 * 3 * 1024) {
+                echo '<div class="notice notice-error"><strong>Розмір файлу більше 3 MB!</strong></div>';
+                exit();
+            }
+        }
 
-            $fileName = $_FILES['img']['name'];
-            $fileNameArr = explode('.', $fileName);
-            $fileExtension = $fileNameArr[count($fileNameArr) - 1];
-            $newFileName = md5($fileName . rand(0, 100)) . '.' . $fileExtension;
+        if (!file_exists($baseDir . $galleryDirName . $_POST['gallery-id'])) {
+            mkdir($baseDir . $galleryDirName . $_POST['gallery-id'], 0755, true);
+        }
 
-            if (move_uploaded_file($_FILES['img']['tmp_name'], $baseDir . $galleryDirName . $_POST['gallery-id'] . '/' . $newFileName)) {
-                $resInsert = $wpdb->insert(
-                    $wpdb->prefix . 'technodecor_gallery_photos',
-                    [
-                        'gallery_id' => $_POST['gallery-id'],
-                        'img_path' => $galleryDirName . $_POST['gallery-id'] . '/' . $newFileName
-                    ],
-                    ['%d', '%s']
-                );
+        foreach ($_FILES['img']['tmp_name'] as $index => $tmp_name) {
+            if (is_uploaded_file($tmp_name)) {
+                $fileName = $_FILES['img']['name'][$index];
+                $fileNameArr = explode('.', $fileName);
+                $fileExtension = $fileNameArr[count($fileNameArr) - 1];
+                $newFileName = md5($fileName . rand(0, 100)) . '.' . $fileExtension;
 
-                if ($resInsert) {
-                    echo '<div class="updated notice notice-success"><strong>Фото успішно додане!</strong></div>';
-                    echo '<meta http-equiv="refresh" content="0;url=/wp-admin/admin.php?page=add-photos-gallery&gallery-id=' . $_POST['gallery-id'] . '">';
-                    exit();
-                } else {
-                    echo '<div class="notice notice-error"><strong>Помилка при додаванні фото!</strong></div>';
-                    exit();
+                if (move_uploaded_file($tmp_name, $baseDir . $galleryDirName . $_POST['gallery-id'] . '/' . $newFileName)) {
+                    $resInsert = $wpdb->insert(
+                        $wpdb->prefix . 'technodecor_gallery_photos',
+                        [
+                            'gallery_id' => $_POST['gallery-id'],
+                            'img_path' => $galleryDirName . $_POST['gallery-id'] . '/' . $newFileName
+                        ],
+                        ['%d', '%s']
+                    );
+
+                    if (!$resInsert) {
+                        echo '<div class="notice notice-error"><strong>Помилка при додаванні фото!</strong></div>';
+                        exit();
+                    }
                 }
             }
         }
+        echo '<div class="updated notice notice-success"><strong>Всі фото успішно додані!</strong></div>';
+        echo '<meta http-equiv="refresh" content="0;url=/wp-admin/admin.php?page=add-photos-gallery&gallery-id=' . $_POST['gallery-id'] . '">';
+        exit();
+
     } elseif (isset($_GET['action']) && isset($_GET['img_id']) && isset($_GET['gallery-id'])) {
         if ($_GET['action'] === 'delete') {
             $deletePhoto = $wpdb->get_row("SELECT img_path
@@ -210,7 +219,7 @@ function addPhotosToGallery()
         <h2>Завантажити фото до вибраної галереї</h2>
     <form method="post" action="/wp-admin/admin.php?page=add-photos-gallery" enctype="multipart/form-data">
         <input type="hidden" name="gallery-id" value="<?= $selectedGallery; ?>" />
-        <input type="file" name="img" />
+        <input type="file" name="img[]" multiple="multiple" />
         <input type="submit" value="Завантажити" class="button button-primary" />
     </form>
 <?php

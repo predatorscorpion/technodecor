@@ -7,6 +7,9 @@ global $post;
 
 ?>
 <div class="page-content">
+    <div class="block-heading">
+        <h2><?= $post->post_title; ?></h2>
+    </div>
     <?php
         $productions = get_posts([
             'numberposts' => -1,
@@ -14,11 +17,7 @@ global $post;
             'orderby' => 'date',
             'order' => 'desc'
         ]);
-        if ($productions):
-    ?>
-        <div class="block-heading">
-            <h2><?= $post->post_title; ?></h2>
-        </div>
+        if ($productions): ?>
         <div class="masonry-container">
             <div class="elements-gride">
                 <?php foreach ($productions as $production):

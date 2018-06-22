@@ -1,4 +1,13 @@
 (function($){
+    $(window).load(function () {
+        //Masonry
+        $('.elements-gride').masonry({
+            itemSelector: '.masonry-item',
+            columnWidth: 300,
+            isFitWidth: true
+        });
+    });
+
     $(document).ready(function() {
         var images = $('.main-slider').data('images').split(' ');
         var pathToTheme = $('.promo-block').data('path-to-theme');
@@ -18,13 +27,6 @@
                 }
             }, 5000);
         }
-
-        //Masonry
-        $('.elements-gride').masonry({
-            itemSelector: '.masonry-item',
-            columnWidth: 300,
-            isFitWidth: true
-        });
 
         $('.masonry-item').hover(function () {
             $(this).find('a').append('<div class="masonry-item-hover"><img src="' + pathToTheme + '/images/icons/white-arrow.png"></div>');

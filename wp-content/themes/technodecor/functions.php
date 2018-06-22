@@ -11,6 +11,7 @@ register_nav_menus( array(
 //Custom post types
 require_once(get_template_directory() . '/includes/functions/services.php');
 require_once(get_template_directory() . '/includes/functions/productions.php');
+require_once(get_template_directory() . '/includes/functions/productions-type.php');
 require_once(get_template_directory() . '/includes/functions/interior-design-posts.php');
 
 

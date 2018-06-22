@@ -41,7 +41,7 @@ global $post;
     <?php
         $productions = get_posts([
             'numberposts' => 10,
-            'post_type' => 'production',
+            'post_type' => 'productions',
             'orderby' => 'date',
             'order' => 'desc'
         ]);
